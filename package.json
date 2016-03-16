@@ -1,15 +1,19 @@
 {
-  "name": "downloader",
+  "name": "har-downloader",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "har-downloader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "PFrew",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.3.4",
     "mkdirp": "^0.5.1"
-  }
+  },
+  "preferGlobal": true,
+  "bin": {
+     "cli": "./bin/cli"
+ }
 }
