@@ -4,14 +4,13 @@ var Promise = require('bluebird');
 var Mkdirp = require('mkdirp');
 var Http = require('http');
 
-const BASE_URL = 'http://www.change-pain.co.uk/static_media/modules/module-5/';
 const FILES_PATH = './files.txt';
 const DESTINATION = 'download';
 
 getFiles().then(function(files) {
 	files = files.filter(function(v, i, a) { return a.indexOf(v) == i });
 	return Promise.each(files, function(file, i) {
-		console.log(i + '/' + files.length + ' - Downloading: ' + file);
+		console.log((i+1) + '/' + files.length + ' - Downloading: ' + file);
 		return downloadFile(file);
 	});
 });
@@ -25,9 +24,9 @@ function getFiles() {
 	});
 }
 
-function downloadFile(url) {
+function downloadFile(url, base) {
 	return new Promise(function(resolve, reject) {
-		var paths = url.substring(BASE_URL.length).split('/');
+		var paths = Url.parse(url).pathname.split('/');
 		var filename = Url.parse(paths.pop()).pathname;
 		paths = paths.join('/');
 		Mkdirp(DESTINATION + '/' + paths, function(err) {
