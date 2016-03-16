@@ -4,8 +4,10 @@ var Promise = require('bluebird');
 var Mkdirp = require('mkdirp');
 var Http = require('http');
 
-const FILES_PATH = './files.txt';
-const DESTINATION = 'download';
+const REGEX = /\"url": \"([^\"]*)/g;
+
+var harFile = process.argv[2];
+var destination = process.argv[3];
 
 getFiles().then(function(files) {
 	files = files.filter(function(v, i, a) { return a.indexOf(v) == i });
@@ -17,8 +19,12 @@ getFiles().then(function(files) {
 
 function getFiles() {
 	return new Promise(function(resolve, reject) {
-		Fs.readFile(FILES_PATH, function(err, data) {
-			var files = data.toString().split('\n');
+		Fs.readFile(harFile, function(err, data) {
+			var capture = data.toString();
+			var files = [];
+			while (match = REGEX.exec(capture)) {
+    			files.push(match[1]);
+  			}
 			resolve(files);
 		});
 	});
@@ -29,8 +35,8 @@ function downloadFile(url, base) {
 		var paths = Url.parse(url).pathname.split('/');
 		var filename = Url.parse(paths.pop()).pathname;
 		paths = paths.join('/');
-		Mkdirp(DESTINATION + '/' + paths, function(err) {
-			file = Fs.createWriteStream(DESTINATION + '/' + paths + '/' + filename);
+		Mkdirp(destination + '/' + paths, function(err) {
+			file = Fs.createWriteStream(destination + '/' + paths + '/' + filename);
 			Http.get({
 				host: Url.parse(url).host,
 				path: Url.parse(url).pathname,
@@ -43,6 +49,7 @@ function downloadFile(url, base) {
 					resolve();
 				}).on('error', function() {
 					console.warn('** ERROR');
+					file.end();
 					reject();
 				});
 			});

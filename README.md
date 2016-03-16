@@ -1,1 +1,5 @@
-This will download a \n delimited list of files from files.txt, preserving the directory structure.
+This will download all urls found in a firefox network capture har file, preserving directory structure.
+
+usage:
+
+> node har-downloader harfile.har downloads/
