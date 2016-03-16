@@ -2,4 +2,4 @@ This will download all urls found in a firefox network capture har file, preserv
 
 usage:
 
-> node har-downloader harfile.har downloads/
+> har-downloader harfile.har downloads/
