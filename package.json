@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "PFrew",
+  "engines": {
+     "node": ">= 0.8.0"
+  },
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.3.4",
@@ -14,6 +17,6 @@
   },
   "preferGlobal": true,
   "bin": {
-     "cli": "./bin/cli"
+     "har-downloader": "./bin/cli"
  }
 }
