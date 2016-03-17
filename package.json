@@ -1,6 +1,6 @@
 {
   "name": "har-downloader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "har-downloader.js",
   "scripts": {
@@ -14,6 +14,10 @@
   "dependencies": {
     "bluebird": "^3.3.4",
     "mkdirp": "^0.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pat-flew/har-downloader.git"
   },
   "preferGlobal": true,
   "bin": {
